@@ -1,0 +1,67 @@
+<html>
+
+<head>
+    <title>BVH Viewer</title>
+    <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+
+<script src='https://git.io/glm-js.min.js'></script>
+<script>
+  console.log('loaded glm-js version: ', glm.version);
+  console.log('vec3 example: ', glm.vec3(1,2,3));
+</script>
+    <script src="walk.js">
+
+    </script>
+    <script type="text/javascript" src="trCube.js">
+    </script>
+
+    <script id="vs" type="vertex-shader">
+        attribute highp vec3 myVertex;
+        attribute highp vec4 myColor;
+        attribute highp vec2 myUV;
+        uniform mediump mat4 Pmatrix;
+        uniform mediump mat4 Vmatrix;
+        uniform mediump mat4 Mmatrix;
+        varying mediump vec4 color;
+        varying mediump vec2 texCoord;
+        void main(void)
+        {
+            gl_Position = Pmatrix*Vmatrix*Mmatrix*vec4(myVertex, 1.0);
+            color = myColor;
+            texCoord = myUV;
+        }
+    </script>
+
+    <script id="fs" type="fragment-shader">
+        varying mediump vec4 color;
+        void main(void)
+        {
+            gl_FragColor = 1.0 * color;
+        }
+    </script>
+
+    <script id="bvh" type="bvh" src="walk.bvh">
+
+    </script>
+</head>
+
+<body onload="main()">
+    <canvas id="helloapicanvas" style="border: none;" width="400" height="400"></canvas>
+	<br>
+	<button onclick="trXinc()">Translate X + 0.1</button>
+	<button onclick="animRotate()">Animation Rotate + 0.01</button>
+	<table border=1> 
+	<tr > 
+	<td id="matrix0"> 	<td id="matrix4">  	<td id="matrix8">  	<td id="matrix12"> 
+	<tr> 
+	<td id="matrix1"> 	<td id="matrix5">  	<td id="matrix9">  	<td id="matrix13"> 
+	<tr> 
+	<td id="matrix2"> 	<td id="matrix6">  	<td id="matrix10">  	<td id="matrix14"> 
+	<tr> 
+	<td id="matrix3"> 	<td id="matrix7">  	<td id="matrix11">  	<td id="matrix15"> 
+	</table>
+	<p id="webTrX">  </p>
+    <input type="file" accept="text/plain" id="input">
+</body>
+
+</html>
