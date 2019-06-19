@@ -222,6 +222,9 @@ function renderScene() {
 }
 
 function main() {
+	var test = document.getElementById("bvh").innerHTML;
+	console.log(test);
+	return;
 	var canvas = document.getElementById("helloapicanvas");
     console.log("Start");
 	
